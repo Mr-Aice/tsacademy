@@ -25,6 +25,24 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
+  // Flip course cards with both pointer and keyboard input.
+  document.querySelectorAll('.course-card').forEach(function (card) {
+    function flipCard() {
+      var flipped = card.classList.toggle('is-flipped');
+      card.setAttribute('aria-pressed', flipped ? 'true' : 'false');
+    }
+    card.addEventListener('click', function (event) {
+      if (event.target.closest('a')) return;
+      flipCard();
+    });
+    card.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        flipCard();
+      }
+    });
+  });
+
   // One orchestrated hero reveal
   var art = document.querySelector('.hero-art');
   if (art) {
